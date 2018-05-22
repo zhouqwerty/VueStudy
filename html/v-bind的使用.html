@@ -10,13 +10,15 @@
 </head>
 <body>
 <div id='app' class='demo'>
-    {{message}}
+    <span v-bind:title='message'>
+        鼠标悬停几秒钟
+    </span>
 </div>
 <script>
     var vm=new Vue({
         el:'#app',
         data:{
-            message:'Hello World!!!'
+            message:'现在是'+new Date().toLocaleString()
         }
     })
 </script>
