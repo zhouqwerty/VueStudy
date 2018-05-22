@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <title>vue的组件化学习</title>
+    <script src='../js/jquery-3.2.1.slim.min.js'></script>
+    <script src='../js/vue.js'></script>
+    <link rel='stylesheet' href='../css/iview.css'>
+    <script src='../js/iview.min.js'></script>
+    <script>
+
+</script>
+</head>
+<body>
+<div id="app">
+    <!--所谓组件化就是将一段原生的html代码封装成一个新的html标签进行使用
+    注意：vue的组件必须放在一个vue对象中才能被解释渲染，且组件的注册必须在其附属的vue对象创建之前，
+    vue组件的本质其实就是一个拥有预定义选项的实例-->
+    <demo></demo>
+    <!--接下来展示的是vue组件真正的魅力所在，父子组件之间的数据交互-->
+    <ul>
+        <demo-item v-for='item in items' v-bind:unit='item' v-bind:key='item.name'></demo-item>
+    </ul>
+</div>
+
+<script>
+    Vue.component('demo',{
+        template:'<ul><li>这是一个无序列表的li</li><li>这是一个无序列表的li</li><li>这是一个无序列表的li</li></ul>'
+    });
+    Vue.component('demo-item',{
+        props:['unit'],
+        template:'<li>{{unit.type}}</li>'
+    });
+    var vm=new Vue({
+        el:'#app',
+        data:{
+            message:'Hello World!!!',
+            items:[
+                {name:'china',type:'中国',flag:true},
+                {name:'us',type:'美国',flag:false},
+                {name:'uk',type:'英国',flag:true}
+            ]
+        }
+    })
+</script>
+</body>
+</html>
