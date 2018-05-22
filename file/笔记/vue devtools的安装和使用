@@ -1,0 +1,9 @@
+前提：必须安装了npm（因为要使用npm进行安装）
+1.从github上clone(或下载)vue devtools工具
+2.解压下载好的文件到一个目录，在该目录下打开命令行窗口进行手动编译和安装
+ (1)npm install
+ (2)npm run build
+ (3)修改安装根目录下的shells\chrome\manifest.json中的30行左右的"persistent": false为"persistent": true
+ (4)打开谷歌浏览器的扩展程序界面，勾选“开发者模式”，然后点击“加载解压后的扩展名”，选择shells\chrome
+3.当我们访问引入vue.js（注意：必须是开发者版本）的网页时，插件就会检测到，debug模式下就会出现vue的调试栏了
+（如果一开始没有的话建议多刷新几次并清除一下缓存试试）
