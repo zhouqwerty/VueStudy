@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <title>vue实例的生命周期</title>
+    <script src='../js/jquery-3.2.1.slim.min.js'></script>
+    <script src='../js/vue.js'></script>
+    <link rel='stylesheet' href='../css/iview.css'>
+    <script src='../js/iview.min.js'></script>
+</head>
+<body>
+<div id='app' class='demo'>
+    {{message}}
+</div>
+<script>
+    var vm=new Vue({
+        el:'#app',
+        data:{
+            message:'Hello World!!!'
+        },
+        created: function () {
+            console.log('vue实例被创建')
+        },
+        mounted: function () {
+            console.log('vue实例被挂载')
+        },
+        updated:function(){
+            console.log('vue实例被更新')
+        },
+        destroyed:function(){
+            console.log('vue实例被销毁')
+        }
+    })
+</script>
+</body>
+</html>

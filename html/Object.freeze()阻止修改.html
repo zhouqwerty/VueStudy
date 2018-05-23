@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <title>Object.freeze()阻止修改</title>
+    <script src='../js/jquery-3.2.1.slim.min.js'></script>
+    <script src='../js/vue.js'></script>
+    <link rel='stylesheet' href='../css/iview.css'>
+    <script src='../js/iview.min.js'></script>
+</head>
+<body>
+<div id='app' class='demo'>
+    {{a}}
+</div>
+<script>
+    var obj={a:1}
+    /*该方法就是将传入的对象进行锁定，使其无法添加，修改，删除任何属性，如果传入的不是对象则无效*/
+    Object.freeze(obj)
+    var vm=new Vue({
+        el:'#app',
+        data:obj
+    })
+</script>
+</body>
+</html>

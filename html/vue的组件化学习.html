@@ -28,7 +28,9 @@
         template:'<ul><li>这是一个无序列表的li</li><li>这是一个无序列表的li</li><li>这是一个无序列表的li</li></ul>'
     });
     Vue.component('demo-item',{
-        props:['unit'],
+        props:{
+            unit:''
+        },
         template:'<li>{{unit.type}}</li>'
     });
     var vm=new Vue({
