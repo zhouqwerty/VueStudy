@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <title>模板语法</title>
+    <script src='../js/jquery-3.2.1.slim.min.js'></script>
+    <script src='../js/vue.js'></script>
+    <link rel='stylesheet' href='../css/iview.css'>
+    <script src='../js/iview.min.js'></script>
+</head>
+<body>
+<script>
+    var a=9;
+</script>
+<div id='app' class='demo'>
+    <!--当我们使用了v-once后，该dom内对应的数据只会插入一次，对于后续的修改不再响应-->
+    <div v-once>{{message}}</div>
+    <!--对于html标签，模板语法会将标签当成字符串显示，而不会解析出html标签，如果要像当成html
+    标签一样解析的话，要使用v-html-->
+    <div>{{demoHtml}}</div>
+    <span v-html='demoHtml'></span>
+    <button v-bind:disabled="isButtonClicked">点击</button>
+    <!--模板语法可以使用js表达式（只限于单一表达式，语句不可以）,
+    你可以使用Math，Date等全局函数，但是不要试图去访问自定义的全局变量-->
+    <div>{{longMessage.split(',')}}</div>
+</div>
+<script>
+
+    var vm=new Vue({
+        el:'#app',
+        data:{
+            message:'Hello World!!!',
+            demoHtml:'<div>demo</div>',
+            isButtonClicked:null,
+            longMessage:'1,2,3,4,5'
+        }
+    })
+</script>
+</body>
+</html>
