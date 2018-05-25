@@ -24,8 +24,10 @@
         },
         /*该方法用于计算一些动态的属性，其和data中的属性一样使用*/
         computed:{
-            /*这里还是响应式的，当message变化时，rMessage会重新执行*/
+            /*这里还是响应式的，当message变化时，重新获取rMessage会再次执行该代码（如果message没变化，
+            则不会再次执行，数据会从缓存中取）*/
             rMessage: function () {
+                console.log('computed')
                 return this.message.split('').reverse().join('');
             },
             /*这里不是响应式的，我们要记住，vue中的所有响应式都是基于vue实例的属性*/
@@ -36,7 +38,7 @@
             todo:{
                 get: function () {
                     console.log('获取值')
-                    return 1+2+3;
+                    return this.message.split('').reverse().join('');
                 },
                 set:function(val){
                     console.log('todo被赋值了')
@@ -50,7 +52,9 @@
         watch:{
             message: function (newValue,oldValue) {
                 /*有的时候我们可以使用watch实现和computed同样的功能，但是我们仍然优选computed（原因：first，last，all的示例）*/
-                this.rMessage=this.message.split('').reverse().join('');
+                console.log('watch')
+                /*注意：对于计算属性来说，我们必须显式的提供set方法，我们才能赋值，否则的话会报错*/
+                this.todo=this.message.split('').reverse().join('');
             },
             /*假如我们的all依赖于first和last，只要其中有一个变化我们就要修改all的值，但是这时候两者监听的代码是重复的，
             * 我们这时如果采用computed，则会好很多*/
