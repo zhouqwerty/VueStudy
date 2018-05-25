@@ -9,15 +9,65 @@
     <script src='../js/iview.min.js'></script>
 </head>
 <body>
-<div id='app' class='demo' v-if='flag'>
-    {{message}}
+<div id='app' class='demo'>
+    <div v-if="flag">{{message1}}</div>
+    <div v-else-if="flag2">{{message2}}</div>
+    <div v-else>{{message3}}</div>
+    <!--当我们想控制很多html标签时，可以使用template，在渲染时template不被包括-->
+    <template v-if="mulFlag">
+        <h1>你好</h1>
+        <p>这是一段内容</p>
+    </template>
+    <!--vue尽可能的少渲染从而提高效率，所以这里我们在input中输入的文本会保留，但是
+    并不是所有的时候我们都希望如此，我们可以通过key标识两者是不想复用的标签-->
+    <template v-if="loginType=='username'">
+        <label>用户名</label><input placeholder="请输入用户名">
+    </template>
+    <template v-else>
+        <label>邮箱</label><input placeholder="请输入您的邮箱">
+    </template>
+    <button @click="toggleLogin">切换登录方式</button>
+    <template v-if="loginType=='username'">
+        <label>用户名</label><input placeholder="请输入用户名" :key="loginType">
+    </template>
+    <template v-else>
+        <label>邮箱</label><input placeholder="请输入您的邮箱" :key="loginType">
+    </template>
+    <button @click="toggleLogin">切换登录方式</button>
+    <!--v-show的使用
+      （1）v-show不能使用template
+      （2）v-show不能和v-else一起使用
+      （3）v-show不同于v-if的重新渲染，它是一开始的就渲染好，只是在
+      条件切换时，调用css的display属性予以显示或隐藏-->
+    <div v-show="loginType=='username'">
+        <label>用户名</label><input placeholder="请输入用户名" key="username-input">
+    </div>
+    <div v-show="loginType!='username'">
+        <label>邮箱</label><input placeholder="请输入您的邮箱" key="email-input">
+    </div>
+    <button @click="toggleLogin">切换登录方式</button>
+    <!--v-if和v-show比较：如果需要频繁切换，使用v-show，如果不是，使用v-if-->
 </div>
 <script>
     var vm=new Vue({
         el:'#app',
         data:{
-            message:'Hello World!!!',
-            flag:false
+            message1:'Hello World!!!',
+            message2:'Hello China!!!',
+            message3:'Hello Me!!!',
+            flag:false,
+            flag2:true,
+            mulFlag:true,
+            loginType:'username'
+        },
+        methods:{
+            toggleLogin:function(){
+                if(this.loginType=='username'){
+                    this.loginType='email'
+                }else{
+                    this.loginType='username'
+                }
+            }
         }
     })
     /*我们可以通过v-if的方式来有条件的显示和隐藏某一部分的DOM，不止于此，我们可以使用第三方库实现动画效果的过渡*/
