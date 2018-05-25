@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <title>Class和Style的绑定</title>
+    <script src='../js/jquery-3.2.1.slim.min.js'></script>
+    <script src='../js/vue.js'></script>
+    <link rel='stylesheet' href='../css/iview.css'>
+    <script src='../js/iview.min.js'></script>
+    <style>
+        .active{
+            width: 50px;
+            height: 50px;
+            background-color: red;
+        }
+        .active2{
+            width: 70px;
+            height: 70px;
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+<div id='app' class='demo'>
+    <div>{{message}}</div>
+    <div :class="{active:isActive}"></div>
+    <div :class="classObject"></div>
+    <div :class="classActive"></div>
+    <div :class="[active2Class]"></div>
+    <div :class="[isActive?'active':'active2']"></div>
+    <!--数组class结合对象class-->
+    <div :class="[{active:isActive}]"></div>
+    <!--对于组件来说，写在组件上的class和绑定的:class都会被放到组件的根元素上-->
+    <demo class="demo1" :class="{active:isActive}"></demo>
+    <!--style的使用和原生的相似，只不过传入的是对象，属性名是驼峰式的-->
+    <div :style="{color:myColor,fontSize:mySize+'px'}">你好</div>
+    <!--同样可以使用数组方式-->
+    <div :style="[myStyle]">你好</div>
+</div>
+<script>
+    Vue.component('demo',{
+        template:'<ul><li>这是一个无序列表的li</li><li>这是一个无序列表的li</li><li>这是一个无序列表的li</li></ul>'
+    });
+    var vm=new Vue({
+        el:'#app',
+        data:{
+            message:'Hello World!!!',
+            /*class对象绑定*/
+            isActive:true,
+            classObject:{
+                active:false
+            },
+            /*class数组绑定*/
+            active2Class:'active',
+            /*以目前的使用感觉来看，对象class一般用于class的添加与删除，数组class用于class的切换*/
+            myColor:'red',
+            mySize:20,
+            myStyle:{
+                color:'blue',
+                fontSize:30+'px',
+            }
+        },
+        computed:{
+            /*我们还可以绑定计算属性.这样就能实现class的动态响应*/
+            classActive: function () {
+                return {
+                    active:this.isActive
+                }
+            }
+        }
+    })
+</script>
+</body>
+</html>
